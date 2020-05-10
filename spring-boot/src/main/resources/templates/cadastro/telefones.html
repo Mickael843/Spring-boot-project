@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Cadastro de Usuários</title>
+	<!--Import Google Icon Font-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	
+	<!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<style type="text/css">
+	form input[type=submit] {
+		color: white;
+	}
+</style>
+</head>
+<body>
+	<div class="container">
+		<a href="/cadastroPessoa" class="waves-effect waves-light btn" style="margin-top: 5%">
+			<i class="material-icons right">group_add</i>C. Pessoas</a>
+		<br /> <br /> <br />
+		<fieldset>
+			<legend>Dados do Usuário</legend>
+			<div th:each="pessoa : ${pessoaObj}">
+				<div class="row">
+					<p>ID: <span th:text="${pessoa.id}"></span></p>
+					<p>Nome: <span th:text="${pessoa.nome}"></span></p>
+					<p>Sobrenome: <span th:text="${pessoa.sobrenome}"></span></p>
+					<p>Idade: <span th:text="${pessoa.idade}"></span></p>
+				</div>
+			</div>
+		</fieldset>
+		<br /> <br />
+		<fieldset>
+			<br />
+				<div th:each="mensagem : ${msg}">
+					<span th:text="${mensagem}" style="color: red"></span>
+				</div>
+			<br />
+			
+			<h5>Telefones</h5>
+			<div class="row">
+				<form th:action="@{/addFonePessoa/{pessoaId}(pessoaId=${pessoaObj.id})}" method="post" class="col s12">
+					<div class="row">
+						<div class="input-field col s6">
+							<label class="active" for="numero">Número</label>
+							<input class="validate" id="numero" name="numero">
+						</div>
+						<div class="input-field col s6">
+							<label class="active" for="tipo">Tipo</label>
+							<input class="validate" id="tipo" name="tipo">
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s6">
+							<input class="waves-effect waves-light btn" type="submit" value="Salvar">
+						</div>			
+					</div>
+				</form>
+			</div>
+		</fieldset>
+		<br />
+		
+		<fieldset>
+			<table class="centered">
+				<tbody>
+					<tr th:each="telefone : ${telefones}">
+						<th th:text="${telefone.id}"></th>
+						<th th:text="${telefone.tipo}"></th>
+						<th th:text="${telefone.numero}"></th>
+						<td><a class="waves-effect waves-light btn" 
+						 th:href="@{/removerTelefone/{idtelefone}(idtelefone=${telefone.id})}" title="Remover">
+						 <i class="material-icons right">delete</i>Remover</a></td>
+					</tr>
+				</tbody>		
+			</table>
+		</fieldset>
+	</div>
+
+</body>
+</html>

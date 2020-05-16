@@ -10,7 +10,7 @@ Ao entrar no sistema o usuário deve ser autenticado utilizando um login e senha
 - Spring mvc
 - Spring data
 - Spring security
-- JPA
+
 ##### front-end
 - HTML5 
 - CSS3
